@@ -1,0 +1,119 @@
+##what is a Registers
+#########step1################
+Registers are small , super-fast storage spots located directly inside the CPU.
+The CPU uses them to hold he numvers and memory addresses it`s working on rihgt now,
+its much faster for the CPU to use a register than to get data from the main storage shelf (RAM)
+
+The names can be confusing , but there`s pattern.Let`s take RAX as an example:
+
+->RAX:The Register A Xtended (64-bit) This is the whol spot on the workbench
+->EAX:The Lower half(32-bits) of RAX
+->AX:The Lower quarter (16-bits) of EAX
+->AL:The Lowest 8 bits of AX
+->AH:the High 8 bits of AL
+
+when you modify a smaller part like EAX the upper part of RAX is usually cleared to zero.For a beginner. you`all mostly work with 64-bit R names (like RAX) and the 32-bit Enames (like EAX)
+
+@Main toolkit of registers 
+you don`t need to memorize all of them at once , For your LIBFT Project and pwn, these are the most important ones to know (for the system v X86-64 used on Linux)
+
+-->Function arguments: when you call a function , the inputs (arguments) go here:
+RDI: 1s argument
+RSI: 2s argument
+RDX: 3s argument
+RCX: 4th argument
+
+-->Return Value when funtion is finished ,its result goes here
+RAX: The Accumulator ,Used to hold the return value.
+
+-->Pointers: These are special-purpose and very important
+RSP:The stack pointer always points to the top of the stack
+RBP:The Base pointer points of the base of the current function workspace on the stack RIP:the instruction pointer points to the next command on the To-Do list: This is most important register in pwn!!!!
+
+
+this is table in registers
+
+64-bit (Quadword)	32-bit (Doubleword)	16-bit (Word)	8-bit (Byte)
+RAX					EAX					AX				AL (low), AH (high)
+RBX					EBX					BX				BL (low), BH (high)
+RCX					ECX					CX				CL (low), CH (high)
+RDX					EDX					DX				DL (low), DH (high)
+RSI					ESI					SI				SIL
+RDI					EDI					DI				DIL
+RBP					EBP					BP				BPL
+RSP					ESP					SP				SPL
+R8					R8D					R8W				R8B
+R9					R9D					R9W				R9B
+R10					R10D				R10W			R10B
+R11					R11D				R11W			R11B
+R12					R12D				R12W			R12B
+R13					R13D				R13W			R13B
+R14					R14D				R14W			R14B
+R15					R15D				R15W			R15B
+
+
+source https://www.twit.community/t/intel-x86-s-proposal-a-life-in-64-bits/15565
+
+
+
+######### step-2 ################
+
+ok now we talking about MOV
+
+The MOV instrucion is the most important once in assmebly because it`s how you move thing around .
+in short, MOV copies data form a source to a destination , you need it beacuse the CPU can only do math or logic that is sitting on tis workbench (in a register)
+
+think of MOV as the CPU`s hands
+
+for example:
+
+instruction [ mov rdi ,rax]
+  
+  		BEFORE THE INSTRUCTION
+   	--------------------------
+   	CPU Workbench (Registers)
+   	 RAX: [   100    ]
+   	 RDI: [ ???????? ]
+
+			   ||
+			   || The 'mov' operation happens
+			   \/
+
+	   AFTER THE INSTRUCTION
+	   --------------------------
+	   CPU Workbench (Registers)
+		 RAX: [   100    ]  <-- Unchanged!
+		aRDI: [   100    ]
+
+Why you need this: To prepare argument fo a function .For example if you result is in RAX but you need to pass it as the first argument to another fucntion, you`d use [mov rdi rax]
+
+
+-->moving data between RAM and regiter This 
+this is the most important use , it`s like taking an ingredient form the big sorag shelf (RAM) and putting it onto your workbench (a register) so you can work with it.
+
+for example 
+
+instruction [mov rax [some_address_in ram]]
+(The square brackets [] mean "go to this address in memory get the value stored there")
+		   BEFORE THE INSTRUCTION
+		   --------------------------
+  Big Storage Shelf (RAM)        CPU Workbench (Registers)
+  Address 0x1000: [   42   ]      RAX: [ ???????? ]
+
+					   ||
+					   || The 'mov' operation happens
+					   \/
+
+		   	AFTER THE INSTRUCTION
+		   --------------------------
+   Big Storage Shelf (RAM)        CPU Workbench (Registers)
+	Address 0x1000: [   42   ]      RAX: [   42     ]
+
+hwy you need this: this is the core of everything.The CPU cannot do ADD or CMP on data
+while it`s in RAM it must MOV the data into a register fist After it`s done working
+it uses [mov] agin to put the result back onto the shelf
+
+
+#####step hhh_4 ithink####
+MOV , XOR INC , PUSH , POP
+in the next puch not now ; but now iwana creat small exercice for this 
