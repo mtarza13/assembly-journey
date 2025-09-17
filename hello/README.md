@@ -1,7 +1,4 @@
-<tool_code>
-print(files.create_file(
-"README.md",
-"""# Understanding Assembly: Registers and Data Movement
+# Understanding Assembly: Registers and Data Movement
 
 This guide covers the fundamental concepts of CPU registers and the mov instruction in x86-64 assembly.
 
@@ -149,4 +146,3 @@ rax            0x1e     30
 What's Next?
 Now that you have practiced with mov and add, the next step is to explore other fundamental instructions like xor, inc, push, and pop to manage data and the stack."""
 ))
-</tool_code>
