@@ -1,6 +1,6 @@
 # README.md
 
-# Understanding Data Movement, Loops, and Conditions 🖥️
+# Understanding Assembly: Loops, and Conditions 🖥️
 
 Welcome! This guide will help you understand **CPU registers**, the **mov instruction**, **loops**, and **conditional statements** in x86-64 assembly. We'll also explain important concepts like `.text`, `.data`, and `_start` so beginners can follow along easily.
 
@@ -63,6 +63,9 @@ buffer resb 64  ; reserve 64 bytes
 
 ---
 
+## 3️⃣ The `mov` Instruction 👐
+
+Moves data between registers or memory.
 
 ```nasm
 mov rdi, rax          ; copy RAX to RDI
@@ -75,6 +78,27 @@ mov rax, [some_address] ; load value from RAM into RAX
 
 * Use `cmp` to compare values
 * Use `jxx` to jump based on the result
+
+### Jump Instructions (All Conditions)
+
+| Instruction   | Meaning                               |
+| ------------- | ------------------------------------- |
+| `je` / `jz`   | Jump if equal / zero flag set         |
+| `jne` / `jnz` | Jump if not equal / zero flag not set |
+| `jg` / `jnle` | Jump if greater (signed)              |
+| `jge` / `jnl` | Jump if greater or equal (signed)     |
+| `jl` / `jnge` | Jump if less (signed)                 |
+| `jle` / `jng` | Jump if less or equal (signed)        |
+| `ja` / `jnbe` | Jump if above (unsigned)              |
+| `jae` / `jnb` | Jump if above or equal (unsigned)     |
+| `jb` / `jnae` | Jump if below (unsigned)              |
+| `jbe` / `jna` | Jump if below or equal (unsigned)     |
+| `js`          | Jump if sign flag set                 |
+| `jns`         | Jump if sign flag not set             |
+| `jo`          | Jump if overflow                      |
+| `jno`         | Jump if not overflow                  |
+
+### Example
 
 ```nasm
 mov rax, 5
@@ -91,9 +115,9 @@ done:
 
 ## 5️⃣ Loops 🔁
 
-Loops let you repeat instructions.
+Loops let you repeat instructions. They can be **counting loops** or **condition-based loops**.
 
-### Counting Loop (1 to 5)
+### Counting Loop (for loop)
 
 ```nasm
 mov rcx, 1
@@ -115,6 +139,17 @@ cmp rax, 5
 jg done
 add rax, 1
 jmp while_loop
+done:
+```
+
+### Repeat-Until Loop Concept
+
+```nasm
+mov rax, 1
+repeat_loop:
+add rax, 1
+cmp rax, 5
+jle repeat_loop ; repeat while rax <= 5
 done:
 ```
 
@@ -142,6 +177,17 @@ jmp loop_start
 done:
 ```
 
+### Using `loop` Instruction (Optional)
+
+NASM also has a `loop` instruction:
+
+```nasm
+mov rcx, 5
+loop_label:
+; do something
+loop loop_label ; automatically dec RCX and jump if not zero
+```
+
 ---
 
 ## 6️⃣ Summary Table
@@ -155,11 +201,12 @@ done:
 | `cmp`             | Compare two values and set flags           |
 | `jxx`             | Conditional jump based on flags            |
 | `jmp`             | Unconditional jump                         |
+| `loop`            | Loop instruction using RCX counter         |
 | Label             | Marks a location in code                   |
 | Loop              | Repeats instructions while condition holds |
 | Condition in Loop | Allows decision making inside repetition   |
 
 ---
 
-This README gives you a friendly guide to **moving data**, **using loops**, and **making decisions** in assembly. Practice these concepts to become comfortable with x86-64 programming!
+This README now includes **all common conditions**, **loop types**, and examples ready to compile and test. Practice these to master assembly control flow!
 
