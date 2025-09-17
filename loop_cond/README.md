@@ -1,6 +1,6 @@
 # README.md
 
-# Understanding Assembly: Registers, Data Movement, Loops, and Conditions 🖥️
+# Understanding Data Movement, Loops, and Conditions 🖥️
 
 Welcome! This guide will help you understand **CPU registers**, the **mov instruction**, **loops**, and **conditional statements** in x86-64 assembly. We'll also explain important concepts like `.text`, `.data`, and `_start` so beginners can follow along easily.
 
